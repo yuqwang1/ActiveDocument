@@ -1,6 +1,6 @@
 # ActiveDocument
 
-ActiveDocument is an object-relational mapping library written in Ruby and inspired by Active Record. My library utilizes object-oriented design and metaprogramming to abstract SQL queries and extend Object classes, which optimize the access speed to database.   
+ActiveDocument is an object-relational mapping library written in Ruby and inspired by Active Record. My library utilizes object-oriented design and metaprogramming to abstract SQL queries and extend Object classes optimizes access speed.
 
 # Resources
 
