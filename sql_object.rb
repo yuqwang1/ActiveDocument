@@ -1,14 +1,11 @@
 require_relative 'db_connection'
 require 'active_support/inflector'
-# NB: the attr_accessor we wrote in phase 0 is NOT used in the rest
-# of this project. It was only a warm up.
 
 class SQLObject
   attr_writer :table_name
   attr_reader :table_name
 
   def self.columns
-    # ...
     return @cols if @cols
     array = DBConnection.execute2(<<-SQL)
       SELECT
@@ -34,16 +31,13 @@ end
 
   def self.table_name=(table_name)
     @table_name = table_name
-    # ...
   end
 
   def self.table_name
     @table_name ||= self.to_s.tableize
-    # ...
   end
 
   def self.all
-    # ...
     results = DBConnection.execute(<<-SQL)
       SELECT
         *
@@ -55,12 +49,10 @@ end
   end
 
   def self.parse_all(results)
-    # ...
     results.map { |result|self.new(result) }
   end
 
   def self.find(id)
-    # ...
     results = DBConnection.execute(<<-SQL, id)
     SELECT
       #{table_name}.*
@@ -74,7 +66,6 @@ end
   end
 
   def initialize(params = {})
-    # ...
     params.each do |attr_name, val|
       attr_name = attr_name.to_sym
       if self.class.columns.include?(attr_name)
@@ -87,11 +78,9 @@ end
 
   def attributes
     @attributes ||= {}
-    # ...
   end
 
   def attribute_values
-    # ...
     self.class.columns.map { |col|self.send(col) }
   end
 
@@ -108,11 +97,9 @@ end
       SQL
 
       self.id = DBConnection.last_insert_row_id
-    # ...
   end
 
   def update
-    # ...
     set_line = self.class.columns.map { |attr_name|"#{attr_name} = ?" }.join(",")
     DBConnection.execute(<<-SQL, *attribute_values, id)
       UPDATE
@@ -125,7 +112,6 @@ end
   end
 
   def save
-    # ...
     id.nil? ? self.insert : self.update
   end
 end
