@@ -57,3 +57,43 @@ class DBConnection
     puts '--------------------'
   end
 end
+
+
+.review-errors {
+  box-sizing: border-box;
+  width: 97%;
+  padding: 7px 3px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #fc5b62;
+}
+
+.blue-star {
+  color: #008489;
+  box-sizing: border-box;
+  width: 97%;
+  padding: 7px 9px;
+}
+
+.grey-star {
+  color: grey;
+}
+
+
+import React from 'react';
+
+const drawStar = rating => '⭑⭑⭑⭑⭑'.slice(0, rating);
+
+const Star = ({ rating }) => {
+  rating = Math.floor(rating);
+
+  return (
+    <span className='blue-star'>
+      <span>{drawStar(rating)}</span>
+      <span className='grey-star'>{drawStar(5 - rating)}</span>
+    </span>
+  );
+}
+
+export default Star;
